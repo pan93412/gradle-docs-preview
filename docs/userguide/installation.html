@@ -1773,19 +1773,30 @@ div.screenshot {
 }
 
 /**
- * For mobiles, we show navigation at bottom of page.
+ * For mobile devices, we show navigation at bottom of page.
  *
  * This is the simplest solution to this issue.
  */
 @media not screen and (min-width: 64rem) {
+    /* Repeat the class twice to prioritize our mobile classes! */
+
+    .content.content {
+        /* Make the height equal to
+           the real height of content */
+        overflow: visible;
+    }
+
     .main-content {
         /* Main content show first */
         flex-direction: column-reverse;
     }
 
-    .docs-navigation {
-        /* fill the main container */
+    .docs-navigation.docs-navigation {
+        /* Fill the main container */
         width: 100%;
+
+        /* Don't clip the navigation container */
+        overflow: visible;
     }
 }
 
@@ -1832,7 +1843,14 @@ div.screenshot {
     padding: 30px 12px;
     max-width: 62.5rem;
     margin: 0 auto;
-    padding-left: 5rem
+    padding-left: 5rem;
+}
+
+@media not screen and (min-width: 64rem) {
+    .site-footer__navigation {
+        /* same to nav.docs-navigation for mobiles */
+        padding: 20px 20px 20px 26px;
+    }
 }
 
 .site-footer__links {
@@ -2061,6 +2079,7 @@ div.screenshot {
 }
 
 .docs-navigation {
+    width: 18rem;
     padding: 20px 20px 20px 26px;
     background: #f8f8f7;
     border-right: 1px solid #e7e7e9;
@@ -2854,7 +2873,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div id="header">
 <h1>Installing Gradle</h1>
 <div class="details">
-<span id="revnumber">version 8.1-20230218160000+0000</span>
+<span id="revnumber">version 8.1-20230219160000+0000</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Contents</div>
@@ -2974,8 +2993,8 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)</pre>
 <div class="listingblock">
 <div class="content">
 <pre>❯ mkdir /opt/gradle
-❯ unzip -d /opt/gradle gradle-8.1-20230218160000+0000-bin.zip
-❯ ls /opt/gradle/gradle-8.1-20230218160000+0000
+❯ unzip -d /opt/gradle gradle-8.1-20230219160000+0000-bin.zip
+❯ ls /opt/gradle/gradle-8.1-20230219160000+0000
 LICENSE  NOTICE  bin  README  init.d  lib  media</pre>
 </div>
 </div>
@@ -2986,7 +3005,7 @@ LICENSE  NOTICE  bin  README  init.d  lib  media</pre>
 <p>Create a new directory <code>C:\Gradle</code> with <strong>File Explorer</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Open a second <strong>File Explorer</strong> window and go to the directory where the Gradle distribution was downloaded. Double-click the ZIP archive to expose the content. Drag the content folder <code>gradle-8.1-20230218160000+0000</code> to your newly created <code>C:\Gradle</code> folder.</p>
+<p>Open a second <strong>File Explorer</strong> window and go to the directory where the Gradle distribution was downloaded. Double-click the ZIP archive to expose the content. Drag the content folder <code>gradle-8.1-20230219160000+0000</code> to your newly created <code>C:\Gradle</code> folder.</p>
 </div>
 <div class="paragraph">
 <p>Alternatively, you can unpack the Gradle distribution ZIP into <code>C:\Gradle</code> using an archiver tool of your choice.</p>
@@ -3005,7 +3024,7 @@ LICENSE  NOTICE  bin  README  init.d  lib  media</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>❯ export PATH=$PATH:/opt/gradle/gradle-8.1-20230218160000+0000/bin</pre>
+<pre>❯ export PATH=$PATH:/opt/gradle/gradle-8.1-20230219160000+0000/bin</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3018,7 +3037,7 @@ LICENSE  NOTICE  bin  README  init.d  lib  media</pre>
 <p>In <strong>File Explorer</strong> right-click on the <code>This PC</code> (or <code>Computer</code>) icon, then click <code>Properties</code> &#8594; <code>Advanced System Settings</code> &#8594; <code>Environmental Variables</code>.</p>
 </div>
 <div class="paragraph">
-<p>Under <code>System Variables</code> select <code>Path</code>, then click <code>Edit</code>. Add an entry for <code>C:\Gradle\gradle-8.1-20230218160000+0000\bin</code>. Click OK to save.</p>
+<p>Under <code>System Variables</code> select <code>Path</code>, then click <code>Edit</code>. Add an entry for <code>C:\Gradle\gradle-8.1-20230219160000+0000\bin</code>. Click OK to save.</p>
 </div>
 <div class="paragraph">
 <p>Alternatively, you could also add the environment variable <code>GRADLE_HOME</code> and point this to the unzipped distribution.  Instead of adding a specific version of Gradle to your <code>Path</code>, you can add <code><em>%GRADLE_HOME%</em>/bin</code> to your <code>Path</code>.  When upgrading to a different version of Gradle, just change the <code>GRADLE_HOME</code> environment variable.</p>
@@ -3041,7 +3060,7 @@ LICENSE  NOTICE  bin  README  init.d  lib  media</pre>
 <pre>❯ gradle -v
 
 ------------------------------------------------------------
-Gradle 8.1-20230218160000+0000
+Gradle 8.1-20230219160000+0000
 ------------------------------------------------------------
 
 (environment specific information)</pre>
