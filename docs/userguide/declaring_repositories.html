@@ -5446,6 +5446,11 @@ if it knows that the build will fail at a later point because of missing credent
         return currentChapterFileName;
     }
 
+    // The media query indicating that a device is a desktop.
+    // The `min-width: 64rem` definition should be aligned to
+    // the one of `css/manual.css`.
+    const desktopMediaQuery = window.matchMedia("screen and (min-width: 64rem)");
+
     [].forEach.call(document.querySelectorAll(".docs-navigation a[href$='/" + getCurrentChapterFileName(window.location.pathname) + "']"), function (link) {
         // Add "active" to all links same as current URL
         link.classList.add("active");
@@ -5460,8 +5465,15 @@ if it knows that the build will fail at a later point because of missing credent
             parentListEl = parentListEl.parentNode.closest("li");
         }
 
-        // Scroll to center of the page
-        link.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' })
+        // Only scroll if the device is a desktop.
+        //
+        // Mobile's `docs-navigation` is always at bottom of `content`,
+        // so we should not slide down to where `docs-navigation` lays,
+        // which makes the content causes users to have to slide up to see the content.
+        if (desktopMediaQuery.matches) {
+            // Scroll to center of the page
+            link.scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'})
+        }
     });
 
     // Expand/contract multi-level side navigation
@@ -5473,8 +5485,10 @@ if it knows that the build will fail at a later point because of missing credent
             return false;
         }, false);
     });
-</script>
 
+    // Fix a weird issue making the initial screen always at the bottom.
+    document.querySelector(".content").scrollIntoView(true);
+</script>
 
 </body>
 </html>
